@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Create New Account</h1>
+        </div>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    {% if 'register' in message.tags %}
+                        <li class="message">{{ message }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form method="post" action="{% url 'register' %}" id="registrationForm">
+            {% csrf_token %}
+
+            <!-- Personal Info Section -->
+            <div class="form-section active" id="personal">
+                <h2>Personal Info</h2>
+                <div class="input-group">
+                    {{ form.first_name.label_tag }} {{ form.first_name }}
+                    {% if form.first_name.errors %}
+                        <ul class="error-list">
+                            {% for error in form.first_name.errors %}
+                                <li class="error">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <div class="input-group">
+                    {{ form.last_name.label_tag }} {{ form.last_name }}
+                    {% if form.last_name.errors %}
+                        <ul class="error-list">
+                            {% for error in form.last_name.errors %}
+                                <li class="error">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <div class="input-group">
+                    {{ form.date_of_birth.label_tag }} {{ form.date_of_birth }}
+                    {% if form.date_of_birth.errors %}
+                        <ul class="error-list">
+                            {% for error in form.date_of_birth.errors %}
+                                <li class="error">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="form-section" id="contact">
+                <h2>Contact</h2>
+                <div class="input-group">
+                    {{ form.email.label_tag }} {{ form.email }}
+                    {% if form.email.errors %}
+                        <ul class="error-list">
+                            {% for error in form.email.errors %}
+                                <li class="error">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <div class="input-group">
+                    {{ form.phone_number.label_tag }} {{ form.phone_number }}
+                    {% if form.phone_number.errors %}
+                        <ul class="error-list">
+                            {% for error in form.phone_number.errors %}
+                                <li class="error">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <div class="input-group">
+                    {{ form.address.label_tag }} {{ form.address }}
+                    {% if form.address.errors %}
+                        <ul class="error-list">
+                            {% for error in form.address.errors %}
+                                <li class="error">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Account Details Section -->
+            <div class="form-section" id="account">
+                <h2>Account Details</h2>
+                <div class="input-group">
+                    {{ form.username.label_tag }} {{ form.username }}
+                    {% if form.username.help_text %}
+                        <small class="help-text">{{ form.username.help_text }}</small>
+                    {% endif %}
+                    {% if form.username.errors %}
+                        <ul class="error-list">
+                            {% for error in form.username.errors %}
+                                <li class="error">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <div class="input-group">
+                    {{ form.password.label_tag }} {{ form.password }}
+                    {% if form.password.errors %}
+                        <ul class="error-list">
+                            {% for error in form.password.errors %}
+                                <li class="error">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <div class="input-group">
+                    {{ form.confirm_password.label_tag }} {{ form.confirm_password }}
+                    {% if form.confirm_password.errors %}
+                        <ul class="error-list">
+                            {% for error in form.confirm_password.errors %}
+                                <li class="error">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button type="button" class="btn btn-back" style="visibility: hidden;">Back</button>
+                <button type="button" class="btn btn-next">Next</button>
+            </div>
+        </form>
+    </div>
+</body>
+<script src="{% static 'js/script.js' %}"></script>
+</html>
