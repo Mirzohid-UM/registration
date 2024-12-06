@@ -21,6 +21,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -44,8 +47,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
-]
+    'crispy_forms',
+    'widget_tweaks',
 
+    #'crispy_bootstrap5',  # Agar bootstrap5 ishlatayotgan bo‘lsangiz
+    'crispy_bootstrap4'
+]
+# Formlarning ko'rinishini `bootstrap4` yoki `bootstrap5` bilan sozlash:
+CRISPY_TEMPLATE_PACK = 'bootstrap4'  # yoki 'bootstrap5'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -76,6 +85,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'login.wsgi.application'
+# settings.py
+
+
 
 
 # Database
@@ -87,6 +99,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+AUTH_USER_MODEL = 'app.CustomUser'
 
 
 # Password validation
@@ -119,6 +132,9 @@ USE_I18N = True
 
 USE_TZ = True
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
@@ -129,3 +145,24 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DATE_INPUT_FORMATS = ['%Y-%m-%d', '%d/%m/%Y', '%m/%d/%Y']  # Kerakli formatlarni qo'shing
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': 'errors.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
+

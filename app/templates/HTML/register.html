@@ -48,7 +48,8 @@
                     {% endif %}
                 </div>
                 <div class="input-group">
-                    {{ form.date_of_birth.label_tag }} {{ form.date_of_birth }}
+                    {{ form.date_of_birth.label_tag }}
+                    {{ form.date_of_birth }}
                     {% if form.date_of_birth.errors %}
                         <ul class="error-list">
                             {% for error in form.date_of_birth.errors %}

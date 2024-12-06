@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foydalanuvchi Profil</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+</head>
+<body>
+    <div class="profile-card">
+        <!-- Profil Banner -->
+
+
+        <!-- Foydalanuvchi Profil Rasmi -->
+        <div class="mb-3 text-center">
+            {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}"
+                     alt="Profile Picture"
+                     class="rounded-circle mb-3 border border-3 border-primary"
+                     style="width: 150px; height: 150px;">
+            {% else %}
+                <img src="https://via.placeholder.com/150"
+                     alt="Default Profile Picture"
+                     class="rounded-circle mb-3 border border-3 border-secondary"
+                     style="width: 150px; height: 150px;">
+            {% endif %}
+        </div>
+
+        <!-- Foydalanuvchi ma'lumotlari -->
+        <div class="profile-info">
+            {% if request.user.is_authenticated %}x
+                <h1>{{ request.user.first_name }} {{ request.user.last_name }}</h1>
+                <ul>
+                    <li><strong>Email:</strong> {{ request.user.email }}</li>
+                    <li><strong>Telefon raqami:</strong> {{ profile.phone_number|default:"Ko'rsatilmagan" }}</li>
+                    <li><strong>Tug'ilgan yili:</strong> {{ profile.date_of_birth|date:"Y-m-d"|default:"Ko'rsatilmagan" }}</li>
+                    <li><strong>Manzil:</strong> {{ profile.address|default:"Ko'rsatilmagan" }}</li>
+                    <li><strong>Qisqacha bio:</strong> {{ profile.bio|default:"Bio mavjud emas." }}</li>
+                </ul>
+            {% else %}
+                <h1>Mehmon Foydalanuvchi</h1>
+            {% endif %}
+        </div>
+
+        <!-- Amal tugmalari -->
+        <div class="profile-actions">
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'profile_edit' %}">Ma'lumotni o'zgartirish</a>
+                <a href="{% url 'add_score' %}">Ballarni qo'shish</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

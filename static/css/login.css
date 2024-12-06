@@ -1,0 +1,206 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: url('../images/fon.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+/* Login konteyner */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+/* Login formasi */
+.login-form {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 300px;
+}
+/* Icon uchun konteyner */
+.icon-container img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+}
+
+/* Form inputlar */
+.login-form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Login tugmasi */
+.login-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.login-form button:hover {
+    background-color: #0056b3;
+}
+       * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            padding: 20px;
+        }
+        h2 {
+          color: #1a73e8; /* Sarlavha rangini belgilash */
+          font-size: 20px; /* Sarlavha shrift o'lchami */
+          margin-bottom: 15px; /* Pastki qismi bo'sh joy */
+          border-bottom: 2px solid #ddd; /* Sarlavha ostida chiziq */
+          padding-bottom: 5px; /* Chiziq va sarlavha orasidagi bo'sh joy */
+        }
+        input[type="text"]:focus, input[type="email"]:focus {
+            border-color: #1a73e8; /* Fokusda bo'lganda sarlavha rangini olish */
+            outline: none; /* Standart outline olib tashlanadi */
+        }
+        .login-container {
+             width: 100%;
+             height: 100%;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+        }
+        .login-box {
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+
+        }
+        .textbox {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .textbox input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+        }
+
+       .textbox input:focus {
+
+           border-color: #007bff;
+       }
+       .btn:hover {
+           background-color: #0056b3;
+       }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+         }
+        header h1 {
+            Color: #1a1a1a;
+            font-size: 24px;
+        }
+
+        .form-section {
+            display: none;
+        }
+        .form-section.active {
+            display: block;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .input-group input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between; /* Tugmalarni chekkaga joylashtirish */
+            margin-top: 4px;
+        }
+        .btn {
+
+             margin: 0 5px; /* Har tugma orasidagi masofa */
+             padding: 10px 20px;
+             border: none;
+             border-radius: 4px;
+             background-color: #1a73e8; /* Och ko'k rang */
+             color: white;
+             cursor: pointer;
+
+
+        }
+        .btn.active {
+           opacity: 1;
+        }
+        .btn-next {
+            display: flex;
+            background: #1a73e8;
+            color: white;
+        }
+        .btn-back {
+           background-color: #f5f5f5; /* Back tugmasining rangini aniqlash */
+           color: #666;
+           visibility: visible; /* Bu mavjudligini ta'minlash */
+           margin-right: 10px; /* Yondosh tugma orasidagi masofa */
+           padding: 10px 20px; /* Tugma ichidagi bo'shliq */
+           border-radius: 4px
+        }
+        .btn:hover {
+            background-color: #1658b5;
+        }
+       .btn-back:hover {
+
+           background-color: #e0e0e0;
+       }
+       @media screen and (max-width: 600px) {
+           .container {
+            width: 90%;
+        }
+       }
+       @media (max-width: 600px) {
+           .login-box {
+
+               width: 90%;
+               padding: 30px;
+           }
+       }
+
+

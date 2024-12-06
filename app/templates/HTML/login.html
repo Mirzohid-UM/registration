@@ -6,12 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
 <body>
-
-<div class="login-container">
-    <div class="login-box">
+    <div class="login-container">
+        <div class="login-form">
+            <div class="icon-container">
+                <img src="{% static 'images/login-icon.png' %}" alt="Login Icon">
         {% if messages %}
             <ul class="messages">
                 {% for message in messages %}

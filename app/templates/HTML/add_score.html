@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universitetga Ariza Topshirish</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        function toggleEducationFields() {
+            const educationLevel = document.getElementById("educationLevel").value;
+            const higherEducation = document.getElementById("higherEducation");
+            const secondarySchool = document.getElementById("secondarySchool");
+            const schoolName = document.getElementById("school_name");
+            const isStudying = document.getElementById("is_studying");
+            const studyLevel = document.getElementById("study_level");
+            const currentActivity = document.getElementById("current_activity");
+
+            // Oliy ta'limni tanlasa
+            if (educationLevel === "Oliy ta'lim") {
+                higherEducation.style.display = "block";
+                secondarySchool.style.display = "none";
+                schoolName.removeAttribute("required");
+                isStudying.removeAttribute("required");
+                studyLevel.removeAttribute("required");
+                currentActivity.removeAttribute("required");
+
+                // Yashirin maydonlarni faollashtirish
+
+                higherEducation.querySelectorAll("input").forEach(input => input.setAttribute("required", "true"));
+            }
+            // O'rta ta'limni tanlasa
+            else if (educationLevel === "O'rta ta'lim") {
+                higherEducation.style.display = "none";
+                secondarySchool.style.display = "block";
+
+                // Yashirin maydonlarni faollashtirish
+                higherEducation.querySelectorAll("input").forEach(input => input.removeAttribute("required"));
+                schoolName.setAttribute("required", "true");
+                isStudying.setAttribute("required", "true");
+                studyLevel.setAttribute("required", "true");
+                currentActivity.setAttribute("required", "true");
+            }
+            // Hech narsa tanlanmasa
+            else {
+                higherEducation.style.display = "none";
+                secondarySchool.style.display = "none";
+
+                higherEducation.querySelectorAll("input").forEach(input => input.removeAttribute("required"));
+                secondarySchool.querySelectorAll("input").forEach(input => input.removeAttribute("required"));
+            }
+           }
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Bizning Universitetga Ariza Topshirish</h2>
+        <p class="lead text-center">Bizning universitetimiz yuqori ilmiy darajaga ega bo'lgan ta'lim muassasasi bo'lib, xalqaro miqyosda tan olingan. Bizning o'quv dasturlarimiz yuqori sifatli va zamonaviy talablarga mos bo'lib, talabalarga ilmiy izlanishlar olib borish, amaliyotlar o'tkazish va o'z sohalarida yetakchi bo'lish imkoniyatlarini taqdim etadi.</p>
+        <p class="text-center">Quyidagi formani to'ldirib, siz ham universitetimizga kirishga bir qadam yaqinlashingiz mumkin.</p>
+
+        <form action="/add_score/" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="citizenship">Fuqarolik:</label>
+                <input type="text" class="form-control" id="citizenship" name="citizenship" placeholder="Masalan: O'zbekiston" required>
+            </div>
+
+            <!-- Ta'lim darajasini tanlash -->
+            <div class="form-group">
+                <label for="educationLevel">Ta'lim darajasi:</label>
+                <select class="form-control" id="educationLevel" name="educationLevel" onchange="toggleEducationFields()" required>
+                    <option value="">Tanlang...</option>
+                    <option value="Oliy ta'lim">Oliy ta'lim</option>
+                    <option value="O'rta ta'lim">O'rta ta'lim</option>
+                </select>
+            </div>
+
+            <!-- Oliy ta'lim uchun savollar -->
+            <div id="higherEducation" style="display: none;">
+                <div class="form-group">
+                    <label for="university">Qaysi oliy o'quv yurti?</label>
+                    <input type="text" class="form-control" id="university" name="university" placeholder="Oliy o'quv yurti nomi" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="course_year">Nechinchi kurs talabasisiz?</label>
+                    <input type="number" class="form-control" id="course_year" name="course_year" placeholder="1-kurs, 2-kurs" required>
+                </div>
+            </div>
+
+            <!-- O'rta ta'lim uchun savollar -->
+            <div id="secondarySchool" style="display: none;">
+                <div class="form-group">
+                    <label for="school_name">Qaysi maktabda o'qigansiz?</label>
+                    <input type="text" class="form-control" id="school_name" name="school_name" placeholder="Maktab nomi" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="achievements">Ilmiy yoki ijtimoiy yutuqlaringiz:</label>
+                <textarea class="form-control" id="achievements" name="achievements" rows="3" placeholder="Maqolalar, sertifikatlar yoki yutuqlar haqida yozing" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="languages">Qaysi tillarni bilasiz?</label>
+                <input type="text" class="form-control" id="languages" name="languages" placeholder="Masalan: Ingliz tili (C1), Rus tili (B2)" required>
+            </div>
+
+            <div class="form-group">
+                <label for="international_tests">Qanday xalqaro testlar topshirgansiz?</label>
+                <input type="text" class="form-control" id="international_tests" name="international_tests" placeholder="Masalan: TOEFL, IELTS, SAT, GRE" required>
+                <input type="file" class="form-control-file" id="additional_documents" name="additional_documents" accept=".pdf,.doc,.jpg,.png" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Ariza Topshirish</button>
+        </form>
+    </div>
+
+    <footer class="text-center mt-5">
+        <p>Bizning universitetga kirish uchun eng yaxshi imkoniyatlarni taklif etamiz.</p>
+    </footer>
+
+</body>
+</html>

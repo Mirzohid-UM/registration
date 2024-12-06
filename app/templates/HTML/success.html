@@ -1,15 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="uz">
 <head>
-    <title>Success</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YATA - Muvaffaqiyat Sahifasi</title>
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'css/success.css' %}">
 </head>
 <body>
-    <h2>Registration successful!</h2>
-    <p>Username: {{ user.username }}</p>
-    <p>First Name: {{ user.first_name }}</p>
-    <p>Last Name: {{ user.last_name }}</p>
-    <p>Email: {{ user.email }}</p>
-    <p>Phone Number: {{ user.userprofile.phone_number }}</p>
-    <p>Address: {{ user.userprofile.address }}</p>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="navbar-right">
+
+            <a href="{% url 'profile' %}">
+                <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'images/avataaars.png' %}{% endif %}" alt="Profile" class="profile-icon">
+            </a>
+
+        </div>
+
+        <div class="navbar-center">
+            <a href="add_score.html">Contact Us</a>
+            <a href="add_score.html">E-mail</a>
+        </div>
+        <div class="navbar-left">
+            <a href="{% url 'profile' %}" class="button">Kabinet</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container">
+            <h1>Yangi Avlod Texnologiyalari Akademiyasi</h1>
+            <p>IT sohasidagi kelajak uchun qudratli platforma!</p>
+        </div>
+        <div class="profile-container">
+            {% csrf_token %}
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="content">
+        <section class="info">
+            <h2>Bizning Maqsadimiz</h2>
+            <p>
+                YATA raqamli avlodni dunyoga tayyorlash va ularga global miqyosda muvaffaqiyatga erishish uchun zarur bo'lgan bilimlarni taqdim etadi. Zamonaviy infratuzilma va xalqaro ekspertlar bilan hamkorlik orqali yosh mutaxassislarning muvaffaqiyatiga zamin yaratamiz.
+            </p>
+        </section>
+
+        <section class="slider">
+            <h2>Fotogalereya</h2>
+            <div class="slider-container">
+                <img src="{% static 'images/campus.jpg' %}" alt="Universitet binosi">
+                <img src="{% static 'images/libarat2.jpg' %}" alt="Laboratoriya jarayoni">
+                <img src="{% static 'images/studenttalk1.jpg' %}" alt="Talabalar dars jarayoni">
+            </div>
+        </section>
+
+        <section class="stats">
+            <h2>Bizning Statistikamiz</h2>
+            <ul>
+                <li><strong>95%</strong> - Bitiruvchilarning ishga joylashish ko‘rsatkichi</li>
+                <li><strong>20+</strong> - Xalqaro hamkor universitetlar</li>
+                <li><strong>5+</strong> - Eksklyuziv IT dasturlar</li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Yangi Avlod Texnologiyalari Akademiyasi. Barcha huquqlar himoyalangan.</p>
+    </footer>
 </body>
 </html>
+
+

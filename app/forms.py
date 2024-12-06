@@ -1,35 +1,23 @@
 from django import forms
-from django.core.exceptions import ValidationError
-from .models import User
-from .models import UserProfile
+from .models import CustomUser
 
 
 class UserProfileForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
+    date_of_birth = forms.DateField(required=False, widget=forms.TextInput(attrs={'type': 'date'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'id': 'password'}))
     confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'id': 'confirmPassword'}))
-    help_text = "Parol 8 ta belgidan kam bo'lmasligi kerak."
-    date_of_birth = forms.DateField(required=True, widget=forms.TextInput(attrs={'type': 'date'}))
-
+    help_text = "Parol 8 ta belgidan kam bo'lmasligi kerak."""
     class Meta:
-        model = UserProfile
-        fields = ['first_name', 'last_name', 'date_of_birth', 'phone_number', 'username', 'address', 'email']
+        model = CustomUser
+        fields = ['first_name', 'username','last_name', 'email', 'date_of_birth', 'phone_number', 'address', 'password']
+    def clean_date_of_birth(self):
+        date_of_birth = self.cleaned_data.get('date_of_birth')
+        if not date_of_birth:
+            raise forms.ValidationError("Tug'ilgan sana talab qilinadi.")
+        return date_of_birth
 
-    def clean_username(self):
-        username = self.cleaned_data.get('username')
-        if User.objects.filter(username=username).exists():
-            raise forms.ValidationError('Ushbu username allaqachon mavjud.')
-        return username
 
-
-    def clean_email(self):
-
-        email = self.cleaned_data.get('email')
-        allowed_domains = ['example.com', 'gmail.com', 'yahoo.com']  # Ruxsat etilgan domenlar ro‘yxati
-        domain = email.split('@')[-1]  # Domenni olish
-
-        if domain not in allowed_domains:
-            raise ValidationError('Email ruxsat etilgan domenlardan bo‘lishi kerak!')
-        return email
 
     def clean(self):
         cleaned_data = super().clean()
@@ -38,5 +26,16 @@ class UserProfileForm(forms.ModelForm):
 
         if password != confirm_password:
             self.add_error('confirm_password', "Passwords do not match.")
-
         return cleaned_data
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        allowed_domains = ["gmail.com", "yahoo.com"]  # Ruxsat etilgan domenlar
+        email_domain = email.split('@')[-1]
+
+        if email_domain not in allowed_domains:
+            raise forms.ValidationError(
+                f"Elektron pochta domeni faqat {', '.join(allowed_domains)} bo‘lishi kerak."
+            )
+
+        return email
