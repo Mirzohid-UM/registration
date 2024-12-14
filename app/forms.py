@@ -3,7 +3,6 @@ from .models import CustomUser
 
 
 class UserProfileForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput)
     date_of_birth = forms.DateField(required=False, widget=forms.TextInput(attrs={'type': 'date'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'id': 'password'}))
     confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'id': 'confirmPassword'}))

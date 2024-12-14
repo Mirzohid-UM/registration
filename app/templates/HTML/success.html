@@ -3,75 +3,378 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YATA - Muvaffaqiyat Sahifasi</title>
     {% load static %}
 
-    <link rel="stylesheet" href="{% static 'css/success.css' %}">
+    <title>TARTI</title>  <!--bu yerni o'zgartirish kerak-->
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <!-- Favicon -->
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
 </head>
+
 <body>
-    <!-- Navbar -->
-    <header class="navbar">
-        <div class="navbar-right">
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
 
-            <a href="{% url 'profile' %}">
-                <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'images/avataaars.png' %}{% endif %}" alt="Profile" class="profile-icon">
+
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+            <a href="{% url 'index' %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>TARTI</h2>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Profil tugmasi -->
+          <div class="nav-item">
+            <a class="nav-link" href="#">
+                <i class="fa fa-user"></i>Profil
             </a>
-
-        </div>
-
-        <div class="navbar-center">
-            <a href="add_score.html">Contact Us</a>
-            <a href="add_score.html">E-mail</a>
-        </div>
-        <div class="navbar-left">
-            <a href="{% url 'profile' %}" class="button">Kabinet</a>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="container">
-            <h1>Yangi Avlod Texnologiyalari Akademiyasi</h1>
-            <p>IT sohasidagi kelajak uchun qudratli platforma!</p>
-        </div>
+          </div>>
         <div class="profile-container">
             {% csrf_token %}
         </div>
-    </header>
 
-    <!-- Main Content -->
-    <main class="content">
-        <section class="info">
-            <h2>Bizning Maqsadimiz</h2>
-            <p>
-                YATA raqamli avlodni dunyoga tayyorlash va ularga global miqyosda muvaffaqiyatga erishish uchun zarur bo'lgan bilimlarni taqdim etadi. Zamonaviy infratuzilma va xalqaro ekspertlar bilan hamkorlik orqali yosh mutaxassislarning muvaffaqiyatiga zamin yaratamiz.
-            </p>
-        </section>
-
-        <section class="slider">
-            <h2>Fotogalereya</h2>
-            <div class="slider-container">
-                <img src="{% static 'images/campus.jpg' %}" alt="Universitet binosi">
-                <img src="{% static 'images/libarat2.jpg' %}" alt="Laboratoriya jarayoni">
-                <img src="{% static 'images/studenttalk1.jpg' %}" alt="Talabalar dars jarayoni">
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="{% url 'index' %}" class="nav-item nav-link">Bosh sahifa</a>
+                <a href="{% url 'succes' %}" class="nav-item nav-link active">Biz haqimizda</a>
+                <a href="{% url 'profile' %}" class="nav-item nav-link">Fanlar</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                    <div class="dropdown-menu fade-down m-0">
+                        <a href="{% url 'team_view' %}" class="dropdown-item">Our Team</a>
+                        <a href="{% url 'testimonial_view' %}" class="dropdown-item">Testimonial</a>
+                        <a href="{% url 'custom_404' %}" class="dropdown-item">404 Page</a>
+                    </div>
+                </div>
+                <a href="{% url 'contact_view' %}" class="nav-item nav-link">Contact</a>
             </div>
-        </section>
+            <a href="{% url 'login' %}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Bizga qo'shiling<i class="fa fa-arrow-right ms-3"></i></a><!--bu yerda join Nowni login href qilish kerak-->
+        </div>
+    </nav>
+    <!-- Navbar End -->
 
-        <section class="stats">
-            <h2>Bizning Statistikamiz</h2>
-            <ul>
-                <li><strong>95%</strong> - Bitiruvchilarning ishga joylashish ko‘rsatkichi</li>
-                <li><strong>20+</strong> - Xalqaro hamkor universitetlar</li>
-                <li><strong>5+</strong> - Eksklyuziv IT dasturlar</li>
-            </ul>
-        </section>
-    </main>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 Yangi Avlod Texnologiyalari Akademiyasi. Barcha huquqlar himoyalangan.</p>
-    </footer>
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-centerz">
+                    <h1 class="display-3 text-white animated slideInDown">About Us</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a class="text-white" href="{% url 'profile' %}]">Home</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="{% url 'login' %}]">Pages</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">About</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+    <!-- Service Start -->
+    <div class="container-xxl py-5"><!--Bu yerda ham bor o'zgartiradigan joylar-->
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="service-item text-center pt-3">
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-graduation-cap text-primary mb-4"></i>
+                            <h5 class="mb-3">Malakali Murabiylar</h5>
+                            <p>Bizning o'qituvchilarimiz — o'z sohalarining mutaxassislari bo'lib, har bir talabaning muvaffaqiyatiga erishishiga
+                            yordam beradi. Ular zamonaviy metodlar, amaliy mashg'ulotlar va shaxsiy yondashuvlar bilan ta'lim beradi, talabalarga
+                            eng yuqori natijalarga erishishga yordam beradi.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="service-item text-center pt-3">
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-globe text-primary mb-4"></i>
+                            <h5 class="mb-3">Online darslar</h5>
+                            <p>Bizning onlayn darslarimiz talabalarga qulaylik yaratadi va ularni dunyoning istalgan nuqtasidan ta'lim olish
+                            imkoniyatiga ega qiladi. Yuqori sifatli o'qituvchilar tomonidan olib boriladigan interaktiv darslar, video materiallar,
+                            va amaliy mashg'ulotlar orqali siz o'zingizni rivojlantirishingiz mumkin..</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="service-item text-center pt-3">
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-home text-primary mb-4"></i>
+                            <h5 class="mb-3">Zamonaviy qurilmalar</h5>
+                            <p>Institutimizda zamonaviy qurilmalar bilan jihozlangan o'quv xonalar mavjud bo'lib, ular talabalarimizga amaliy
+                            bilimlarni o'zlashtirishda keng imkoniyatlar yaratadi. Har bir talaba sohasida eng yangi texnologiyalarni o'rganib,
+                            amaliy tajriba orttirishi mumkin.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="service-item text-center pt-3">
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-book-open text-primary mb-4"></i>
+                            <h5 class="mb-3">Kutubxona va Laborotorya</h5>
+                            <p>Institutimizda talabalar uchun zamonaviy kutubxona va laboratoriyalar mavjud. Kutubxonamizda turli sohalarga oid
+                            kitoblar, ilmiy jurnallar va elektron resurslar mavjud bo'lib, bu talabalarimizning ilmiy izlanishlarini
+                            qo'llab-quvvatlaydi. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Service End -->
+
+
+    <!-- About Start -->
+    <div class="container-xxl py-5"><!--bu yerda ham bor ko'rib chiqsh kerak-->
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px;">
+                    <div class="position-relative h-100">
+                        <img class="img-fluid position-absolute w-100 h-100" src="{% static 'images/about.jpg' %}" alt="" style="object-fit: cover;">
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <h6 class="section-title bg-white text-start text-primary pe-3">Biz haqimizda</h6>
+                    <h1 class="mb-4">Xush kelibsiz TARTI ga </h1>
+                    <p class="mb-4">TARTI raqamli avlodni dunyoga tayyorlash va ularga global miqyosda muvaffaqiyatga erishish uchun zarur bo'lgan bilimlarni
+                    taqdim etadi. </p>
+                    <p class="mb-4">Zamonaviy infratuzilma va xalqaro ekspertlar bilan hamkorlik orqali yosh mutaxassislarning muvaffaqiyatiga
+                    zamin yaratamiz</p>
+                    <div class="row gy-2 gx-4 mb-4">
+                        <div class="col-sm-6">
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Kuchli Murabiylar</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Online Darslar</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Xalqaro Sertifikat</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Qulay O'quv Muhit</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Kariyera Imkoniyatlari</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Xalqaro Hamkorliklar</p>
+                        </div>
+                    </div>
+                    <a class="btn btn-primary py-3 px-5 mt-2" href="">Biz haqimizda ko'proq o'qish</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+    <!-- Team Start -->
+    <div class="container-xxl py-5"><!-- bu yerda ham o'zgartiradigan narsalar ko'p ko'rib chiqish kerak-->
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Instructors</h6>
+                <h1 class="mb-5">Teacher</h1>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="team-item bg-light">
+                        <div class="overflow-hidden">
+                            <img class="img-fluid" src="{% static 'images/team-1.jpg' %}" alt="">
+                        </div>
+                        <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
+                            <div class="bg-light d-flex justify-content-center pt-2 px-1">
+                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center p-4">
+                            <h5 class="mb-0">Jon Uik</h5>
+                            <small>killer</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="team-item bg-light">
+                        <div class="overflow-hidden">
+                            <img class="img-fluid" src="{% static 'images/team-2.jpg' %}" alt="">
+                        </div>
+                        <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
+                            <div class="bg-light d-flex justify-content-center pt-2 px-1">
+                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center p-4">
+                            <h5 class="mb-0">Lora</h5>
+                            <small>Biotexnolgy</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="team-item bg-light">
+                        <div class="overflow-hidden">
+                            <img class="img-fluid" src="{% static 'images/team-3.jpg' %}" alt="">
+                        </div>
+                        <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
+                            <div class="bg-light d-flex justify-content-center pt-2 px-1">
+                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center p-4">
+                            <h5 class="mb-0">Jek</h5>
+                            <small>Clon and kvant</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="team-item bg-light">
+                        <div class="overflow-hidden">
+                            <img class="img-fluid" src="{% static 'images/team-4.jpg' %}" alt="">
+                        </div>
+                        <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
+                            <div class="bg-light d-flex justify-content-center pt-2 px-1">
+                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center p-4">
+                            <h5 class="mb-0">Sara</h5>
+                            <small>C++ devoleper</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Team End -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Quick Link</h4>
+                    <a class="btn btn-link" href="">About Us</a>
+                    <a class="btn btn-link" href="">Contact Us</a>
+                    <a class="btn btn-link" href="">Privacy Policy</a>
+                    <a class="btn btn-link" href="">Terms & Condition</a>
+                    <a class="btn btn-link" href="">FAQs & Help</a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Contact</h4>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street,Yashnobod, Toshkent, UZB</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+998940272181</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>Muhammadjonovmirzohid071@gmail.com</p>
+                    <div class="d-flex pt-2">
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Gallery</h4>
+                    <div class="row g-2 pt-2">
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="{% static 'images/course-1.jpg' %}" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="{% static 'images/course-2.jpg' %}" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="{% static 'images/course-3.jpg' %}" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="{% static 'images/course-2.jpg' %}" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="{% static 'images/course-3.jpg' %}" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="{% static 'images/course-1.jpg' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Murojat uchun</h4>
+                    <p>Biz bilan bog'lanish uchun emailingizni yozib qoldiring</p>  <!--b yerda o'zgarish bor-->
+                    <div class="position-relative mx-auto" style="max-width: 400px;">
+                        <label for="email" class="form-label">Email manzilingiz:</label>
+                        <input id="email" class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
+                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="copyright">
+                <div class="row">
+
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="{% url 'index' %}">Home</a>
+                            <a href="">Cookies</a>
+                            <a href="">Help</a>
+                            <a href="">FQAs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js'%}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js'%}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
 </body>
-</html>
 
+</html>
 

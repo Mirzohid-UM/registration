@@ -1,7 +1,5 @@
-import profile
 from django.http import JsonResponse
 from .forms import UserProfileForm
-from .models import CustomUser, TestScore
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth import login as auth_login
@@ -9,26 +7,18 @@ from .test import TestScoreForm, AdditionalDocument
 from django.shortcuts import render
 from .Profile import Userprofile
 from django.contrib.auth.decorators import login_required
-
-from django import template
 from PIL import Image
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .models import CustomUser
 import logging
-
-
-
-register = template.Library()
-
+from django.db import transaction
 
 @receiver(post_save, sender=CustomUser)
 def my_handler(sender, instance, created, **kwargs):
     if created:
         # Yangi foydalanuvchi yaratildi
         print(f"Yangi foydalanuvchi: {instance}")
-
-
 
 def login_view(request):
     if request.method == 'POST':
@@ -42,7 +32,7 @@ def login_view(request):
             # Parolni tekshirish (hashlash ishlatilmagan bo'lsa)
             if user_profile.password == password:  # Bu joyda hash funksiyasi qo'llang
                 auth_login(request, user_profile)  # Tizimga kirish
-                return redirect('succes')  # Muvaffaqiyatli login
+                return redirect('profile')  # Muvaffaqiyatli login
             else:
                 messages.error(request, "Invalid password.")
         except CustomUser.DoesNotExist:
@@ -92,6 +82,7 @@ def succes_view(request):
     items = ["Item 1", "Item 2", "Item 3"]
     return render(request, 'HTML/success.html', {'items': items})
 
+
 def register(request):
     if request.method == 'POST':
         form = UserProfileForm(request.POST)
@@ -105,38 +96,38 @@ def register(request):
     return render(request, 'HTML/register.html', {'form': form})
 
 logger = logging.getLogger(__name__)
+from django.db import transaction
+
 @login_required
 def add_score_view(request):
-    try:
-        if request.method == 'POST':
-            form = TestScoreForm(request.POST, request.FILES)
-            if form.is_valid():
-                # Test score ni saqlash
-                test_score = form.save()
+    if request.method == 'POST':
+        form = TestScoreForm(request.POST, request.FILES)
+        if form.is_valid():
+            try:
+                # Tranzaksiyaga qo'yish
+                with transaction.atomic():
+                    # Test score ni saqlash
+                    test_score = form.save()
 
-                # Fayllarni saqlash
-                additional_docs = request.FILES.getlist('additional_documents', [])
-                for file in request.FILES.getlist('additional_documents'):
-                    AdditionalDocument.objects.create(test_score=test_score, file=file)
+                    # Fayllarni saqlash
+                    additional_docs = request.FILES.getlist('additional_documents', [])
+                    for file in additional_docs:
+                        AdditionalDocument.objects.create(test_score=test_score, file=file)
 
-                messages.success(request, 'Arizangiz muvaffaqiyatli yuborildi!')
-                return redirect('profile')  # Profilga qaytish
-            else:
-                logger.warning(f"Forma xatolari: {form.errors}")
-                messages.error(request, 'Formada xatolar bor. Iltimos, maʼlumotlarni tekshiring.')
+                    messages.success(request, 'Arizangiz muvaffaqiyatli yuborildi!')
+                    return redirect('profile')  # Profilga qaytish
 
+            except Exception as e:
+                logger.error(f"Ma'lumotni saqlashda xatolik: {str(e)}")
+                messages.error(request, "Ma'lumotni saqlashda xatolik yuz berdi. Iltimos, qayta urinib ko'ring.")
         else:
-            form = TestScoreForm()
+            logger.warning(f"Forma xatolari: {form.errors}")
+            messages.error(request, 'Formada xatolar bor. Iltimos, maʼlumotlarni tekshiring.')
+    else:
+        form = TestScoreForm()
 
-        return render(request, 'HTML/add_score.html', {'form': form})
+    return render(request, 'HTML/add_score.html', {'form': form})
 
-    except Exception as e:
-        # Xatoni logga yozish (lozim bo‘lsa)
-        logger.error(f"Xato add_score_view funksiyasida: {str(e)}")
-
-        # Foydalanuvchiga xatolik xabarini ko‘rsatish
-        messages.error(request, f"Xatolik yuz berdi: {str(e)}")
-        return render(request, 'HTML/add_score.html', {'form': TestScoreForm()})
 
 @receiver(post_save, sender=CustomUser)
 def resize_profile_picture(sender, instance, created, **kwargs):
@@ -144,3 +135,19 @@ def resize_profile_picture(sender, instance, created, **kwargs):
         img = Image.open(instance.profile_picture)
         img = img.resize((150, 150))  # Rasmni 150x150 ga o'zgartirish
         img.save(instance.profile_picture.path)
+def index(request):
+    return render(request, 'HTML/index.html')
+def team_view(request):
+    return render(request, 'HTML/team.html')
+
+# Testimonial sahifasi
+def testimonial_view(request):
+    return render(request, 'HTML/testimonial.html')
+
+# Contact sahifasi
+def contact_view(request):
+    return render(request, 'HTML/contact.html')
+
+# 404 sahifasi
+def custom_404_view(request, exception=None):
+    return render(request, 'HTML/404.html', status=404)

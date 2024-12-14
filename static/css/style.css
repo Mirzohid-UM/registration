@@ -47,7 +47,6 @@
             font-size: 16px;
             outline: none;
         }
-
        .textbox input:focus {
 
            border-color: #007bff;
@@ -71,7 +70,6 @@
             Color: #1a1a1a;
             font-size: 24px;
         }
-
         .form-section {
             display: none;
         }
@@ -88,7 +86,6 @@
             border-radius: 4px;
             font-size: 14px;
         }
-
         .input-group input[type="email"] {
             width: 100%;
             padding: 10px;
@@ -147,6 +144,4 @@
                width: 90%;
                padding: 30px;
            }
-       }
-
-
+       }/********** Template CSS **********/
