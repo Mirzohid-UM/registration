@@ -12,6 +12,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .models import CustomUser
 import logging
+import yaml
 from django.db import transaction
 
 @receiver(post_save, sender=CustomUser)
@@ -151,3 +152,10 @@ def contact_view(request):
 # 404 sahifasi
 def custom_404_view(request, exception=None):
     return render(request, 'HTML/404.html', status=404)
+def render_static_files(request):
+    # YAML faylini o'qish
+    with open('static_files.yaml', 'r') as file:
+        yaml_content = yaml.safe_load(file)
+
+    # Static fayllarni HTML shabloniga yuborish
+    return render(request, 'show_static_files.html', {'static_files': yaml_content['static_files']})

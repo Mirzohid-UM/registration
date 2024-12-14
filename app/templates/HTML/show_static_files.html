@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Static Files</title>
+</head>
+<body>
+    <h1>Static Files</h1>
+    <ul>
+        {% for file in static_files %}
+            <li>
+                <strong>{{ file.name }}:</strong>
+                <a href="{{ file.url }}" target="_blank">Download</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
